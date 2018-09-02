@@ -7,7 +7,6 @@ const typeDefs =`
     updatedAt: String
   }
   type Query {
-    hello(name: String): String!
     user(id: ID): User
     users: [User]!
   }

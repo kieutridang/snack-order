@@ -2,34 +2,22 @@ const { User } = require('./schema');
 
 const resolvers = {
   Query: {
-    hello: (_, { name }) => `Hello ${name || 'World'}`,
-    user: (_, { id }) => {
-      return User.findById(id)
-        .then((user) => {
-          return user
-      }, (err) => {
-        console.log(err)
-      })
+    user: async (_, { id }) => {
+      const user = await User.findById(id)
+      return user
     },
-    users: (_, args) => {
-      return User.findAll()
-        .then((users) =>  {
-          return users
-        }, (err) => {
-          console.log(err)
-        })
+    users: async () => {
+      const users = await User.findAll()
+      return users;
     }
   },
   Mutation: {
-    user: (_, args) => {
-      return User.create({
+    user: async (_, args) => {
+      const newUser = await User.create({
         username: args.username,
         password: args.password,
-      }).then((user) => {
-        return user
-      }, (err) => {
-        console.log(err)
       })
+      return newUser
     }
   } 
 }
