@@ -1,4 +1,4 @@
-const { User } = require('./schema');
+const { User } = require('../schemas/user');
 
 const resolvers = {
   Query: {

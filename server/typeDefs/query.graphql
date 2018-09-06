@@ -1,4 +1,7 @@
 type Query {
   user(id: ID): User
-  users: [User]!
+  users: [User]
+
+  product(id: ID): Product
+  products: [Product]
 }

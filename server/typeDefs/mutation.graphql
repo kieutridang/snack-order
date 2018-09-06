@@ -1,3 +1,15 @@
+input Products {
+  product: ID!
+  quantity: Int!
+}
+
+type NewOrder {
+  order: Order
+  orderItems: [Order_Items]
+}
+
 type Mutation {
   user(username: String!, password: String): User
+  product(name: String!, price: Int!): Product
+  createOrder(buyer: ID!, products: [Products]!): NewOrder
 }
