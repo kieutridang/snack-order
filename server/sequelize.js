@@ -13,7 +13,7 @@ const sequelize = new Sequelize('snackorder', 'postgres', 'Tridang93', {
 });
 
 sequelize
-  .authenticate()
+  .sync()
   .then(() => {
     console.log('Connection has been established successfully');
   })

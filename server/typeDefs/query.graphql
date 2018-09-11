@@ -1,7 +1,15 @@
+type QueriedOrder {
+  order: Order
+  orderItems: [Order_Items]
+}
+
 type Query {
   user(id: ID): User
   users: [User]
 
   product(id: ID): Product
   products: [Product]
+
+  order(id: ID): QueriedOrder
+  orderItems(id: ID): Order_Items
 }
