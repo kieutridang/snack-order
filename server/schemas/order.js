@@ -4,14 +4,6 @@ const { User } = require('./user')
 const { Product } = require('./product')
 
 const Order = sequelize.define('orders', {
-  buyer: {
-    type: BIGINT,
-    references: {
-      model: User,
-      key: 'id',
-      deferrable: sequelize.Deferrable.INITIALLY_IMMEDIATE,
-    }
-  },
   createdAt: {
     type: DATE
   },
@@ -19,24 +11,12 @@ const Order = sequelize.define('orders', {
     type: DATE
   }
 });
+Order.belongsTo(User, {
+  foreignKey: 'buyer',
+  onDelete: 'cascade',
+})
 
 const OrderItems = sequelize.define('order_items', {
-  order: {
-    type: BIGINT,
-    references: {
-      model: Order,
-      key: 'id',
-      deferrable: sequelize.Deferrable.INITIALLY_IMMEDIATE,
-    },
-  },
-  product: {
-    type: BIGINT,
-    references: {
-      model: Product,
-      key: 'id',
-      deferrable: sequelize.Deferrable.INITIALLY_IMMEDIATE,
-    }
-  },
   quantity: {
     type: BIGINT,
   },
@@ -46,6 +26,16 @@ const OrderItems = sequelize.define('order_items', {
   updatedAt: {
     type: DATE
   }
+})
+
+OrderItems.belongsTo(Order, {
+  foreignKey: 'orderId',
+  onDelete: 'cascade',
+  onUpdate: 'cascade',
+});
+OrderItems.belongsTo(Product, {
+  foreignKey: 'productId',
+  onUpdate: 'cascade',
 })
 
 const result = {

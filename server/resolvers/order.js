@@ -8,8 +8,8 @@ async function createOrderItems(orderId, products) {
 
   products.forEach((product) => {
     promises.push(OrderItems.create({
-      order: orderId,
-      product: product.product,
+      orderId,
+      productId: product.product,
       quantity: product.quantity,
     }));
   });
@@ -39,7 +39,7 @@ const resolvers = {
     },
     product: async (parent, _) => {
       try {
-        const product = await Product.findById(parent.product);
+        const product = await Product.findById(parent.productId);
         return product;
       } catch (error) {
         console.log(`${__dirname} Order_Items/order: `, error);
@@ -50,6 +50,7 @@ const resolvers = {
     createOrder: async (_, args) => {
       try {
         const products = args.products;
+        debugger
         const newOrder = await Order.create({
           buyer: args.buyer,
         })
@@ -60,7 +61,20 @@ const resolvers = {
         }
         return result
       } catch (error) {
-        console.log(`${__dirname} Mutation/order: `, error);
+        console.log(`${__dirname} Mutation/createOrder: `, error);
+      }
+    },
+    deleteOrder: async (_, args) => {
+      try {
+        const deletedOrder = await Order.destroy({ 
+          where: { 
+            id: args.id 
+          }
+        });
+        return 'Order is deleted';
+      } catch (error) {
+        console.log(`${__dirname} Mutation/deleteOrder: `, error);
+        return error.message;
       }
     }
   },
@@ -68,7 +82,7 @@ const resolvers = {
     order: async(_, args) => {
       try {
         const order = await Order.findById(args.id);
-        const orderItems = await OrderItems.findAll({ where: { order: args.id }});
+        const orderItems = await OrderItems.findAll({ where: { orderId: args.id }});
         return {
           order,
           orderItems,
