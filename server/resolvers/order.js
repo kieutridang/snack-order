@@ -71,6 +71,7 @@ const resolvers = {
             id: args.id 
           }
         });
+        debugger
         return 'Order is deleted';
       } catch (error) {
         console.log(`${__dirname} Mutation/deleteOrder: `, error);
