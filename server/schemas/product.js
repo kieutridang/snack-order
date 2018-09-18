@@ -8,6 +8,9 @@ const Product = sequelize.define('products', {
   price: {
     type: INTEGER
   },
+  image: {
+    type: STRING
+  },
   createdAt: {
     type: DATE
   },

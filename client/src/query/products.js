@@ -6,6 +6,7 @@ export const getProducts = gql`
       id
       name
       price
+      image
     }
   }
 `;

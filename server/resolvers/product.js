@@ -25,6 +25,7 @@ const resolvers = {
         const newProduct = await Product.create({
           name: args.name,
           price: args.price,
+          image: args.image,
         })
         return newProduct
       } catch (error) {

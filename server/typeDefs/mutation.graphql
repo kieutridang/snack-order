@@ -10,7 +10,7 @@ type NewOrder {
 
 type Mutation {
   user(username: String!, password: String): User
-  product(name: String!, price: Int!): Product
+  product(name: String!, price: Int!, image: String!): Product
   createOrder(buyer: ID!, products: [Products]!): NewOrder
   deleteOrder(id: ID): String
 }
